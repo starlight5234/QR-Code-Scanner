@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">QR Code Scanner</string>
+    <string name="scan_btn">Scan QR Code</string>
+    <string name="no_qr_code_found">No QR Code Found</string>
+    <string name="copy">Copy</string>
+    <string name="okay">Okay</string>
+    <string name="scan_completed">Scan Completed</string>
+    <string name="copy_result_to_clipboard">Copy result to clipboard?</string>
+    <string name="camera_denied">Error: Camera permission denied</string>
 </resources>
