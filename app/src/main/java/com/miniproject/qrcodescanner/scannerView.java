@@ -2,6 +2,8 @@ package com.miniproject.qrcodescanner;
 
 import android.Manifest;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,14 +19,14 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class scannerView extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
-    ZXingScannerView scannerView;
+    private ZXingScannerView scannerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner_view);
 
-        scannerView=new ZXingScannerView(this);
+        scannerView = new ZXingScannerView(this);
         setContentView(scannerView);
 
         Dexter.withContext(getApplicationContext())
@@ -51,6 +53,15 @@ public class scannerView extends AppCompatActivity implements ZXingScannerView.R
     @Override
     public void handleResult(Result rawResult) {
         MainActivity.scanResult.setText(rawResult.getText());
+        Button Copy = MainActivity.dialogBox.findViewById(R.id.buttonCopy);
+        TextView dialogText = MainActivity.dialogBox.findViewById(R.id.scanned_result);
+        if (rawResult.getText().contains(MainActivity.linkUnsecure) || rawResult.getText().contains(MainActivity.linkSecure)){
+            dialogText.setText(R.string.open_link);
+            Copy.setText(R.string.open_link);
+        } else {
+            dialogText.setText(R.string.copy_result_to_clipboard);
+            Copy.setText(R.string.copy);
+        }
         onBackPressed();
     }
 

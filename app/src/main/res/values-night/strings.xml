@@ -7,4 +7,9 @@
     <string name="scan_completed">Scan Completed</string>
     <string name="copy_result_to_clipboard">Copy result to clipboard?</string>
     <string name="camera_denied">Error: Camera permission denied</string>
+    <string name="generate_qr_code">Generate QR Code</string>
+    <string name="qr_input">Enter some text to generate QR Code</string>
+    <string name="qr_code">qr_code</string>
+    <string name="enter_your_info">Enter your info</string>
+    <string name="open_link">Open link embedded in QR Code?</string>
 </resources>
