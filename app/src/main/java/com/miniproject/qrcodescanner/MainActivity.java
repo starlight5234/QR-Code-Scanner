@@ -10,6 +10,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.service.controls.Control;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,6 +20,8 @@ import android.widget.Toast;
 import android.text.ClipboardManager;
 
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -28,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     protected static TextView scanResult;
     static String linkUnsecure = "http://";
     static String linkSecure = "https://";
+    static String smsTO = "SMSTO";
+    static String callTel = "tel";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +99,17 @@ public class MainActivity extends AppCompatActivity {
                         Uri uriURL = Uri.parse(scanData);
                         Intent intent = new Intent(Intent.ACTION_VIEW, uriURL);
                         startActivity(intent);
-                    } else {
+                    } else if(scanData.contains(smsTO)) {
+                        String phoneNum = scanData.substring(5, 21);
+                        Uri sms_uri = Uri.parse("smsto:"+phoneNum);
+                        Intent sms_intent = new Intent(Intent.ACTION_SENDTO, sms_uri);
+                        startActivity(sms_intent);
+                    } else if(scanData.contains(callTel)) {
+                        String phoneNum = scanData.substring(3);
+                        Uri call_uri = Uri.parse("tel:"+phoneNum);
+                        Intent call_intent = new Intent(Intent.ACTION_CALL, call_uri);
+                        startActivity(call_intent);
+                    }  else {
                         ClipboardManager cm = (ClipboardManager) getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
                         cm.setText(scanResult.getText().toString());
                         Toast.makeText(MainActivity.this, "Copied to clipboard!", Toast.LENGTH_SHORT).show();

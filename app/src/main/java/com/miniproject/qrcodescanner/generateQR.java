@@ -80,7 +80,7 @@ public class generateQR extends AppCompatActivity {
             public void onClick(View v) {
                 if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                     try {
-                        boolean save = new QRGSaver().save(savePath, qrInputData.getText().toString().trim(), bitmap, QRGContents.ImageType.IMAGE_PNG);
+                        boolean save = QRGSaver.save(savePath, qrInputData.getText().toString().trim(), bitmap, QRGContents.ImageType.IMAGE_PNG);
                         String qr_result = save ? "Image Saved" : "Image Not Saved";
                         Toast.makeText(generateQR.this, qr_result, Toast.LENGTH_SHORT).show();
                     } catch (WriterException e) {

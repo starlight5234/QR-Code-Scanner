@@ -4,6 +4,7 @@ import android.Manifest;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -55,12 +56,20 @@ public class scannerView extends AppCompatActivity implements ZXingScannerView.R
         MainActivity.scanResult.setText(rawResult.getText());
         Button Copy = MainActivity.dialogBox.findViewById(R.id.buttonCopy);
         TextView dialogText = MainActivity.dialogBox.findViewById(R.id.scanned_result);
-        if (rawResult.getText().contains(MainActivity.linkUnsecure) || rawResult.getText().contains(MainActivity.linkSecure)){
+        if (rawResult.getText().contains(MainActivity.linkUnsecure) || rawResult.getText().contains(MainActivity.linkSecure)
+            || rawResult.getText().contains(MainActivity.smsTO) || rawResult.getText().contains(MainActivity.callTel)){
             dialogText.setText(R.string.open_link);
-            Copy.setText(R.string.open_link);
+            Copy.setText(R.string.open);
         } else {
             dialogText.setText(R.string.copy_result_to_clipboard);
             Copy.setText(R.string.copy);
+        }
+
+        try {
+            Toast.makeText(this, "QR Code scanned", Toast.LENGTH_SHORT).show();
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         onBackPressed();
     }
